@@ -7,8 +7,7 @@ int main() {
   double ans = 0, N;
   cin>>N;
   if(N >= 0){
-    ans = sqrt(N);
-    N--;
+    ans = 0;
     while(N > 0){
       ans = sqrt(N+ans);
       N--;
