@@ -36,11 +36,25 @@ char endgame(MAT& XO){
 
     return winner;
 }
+MAT make_board(){
+    MAT XO = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+    return XO;
 
+}
+
+void game();
 
 int main()
-{
-    MAT XO = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
+{   game();
+
+    return 0;
+}
+
+
+
+
+void game(){
+        MAT XO = make_board();
     bool X_turn = true;
     string input;
     bool win = false ;
@@ -49,37 +63,34 @@ int main()
     for(int i = 0; i < 9 ;i++){
         winner = endgame(XO);
         if( winner == '\0'){
-        if(X_turn){
-            cout<<"X turn\n"<<endl;
-        }else {
-            cout<<"O turn\n"<<endl;
-        }
-        print_mat(XO);
+        do {
+            system("cls");
+            if(X_turn){
+                cout<<"X turn\n"<<endl;
+            }else {
+                cout<<"O turn\n"<<endl;
+            }
+            print_mat(XO);
 
-        cout<<"Pick a valid number : ";
-        cin>>input;
-        if(isdigit(input[0]) && input.size() == 1){
-            pos = stoi(input);
-        }else {
-            pos = -1;
-        }
-        while( pos > 9 || pos < 1  || XO[(pos-1)/3][(pos-1)%3] == 'X' || XO[(pos-1)/3][(pos-1)%3] == 'O'){
-            cout<<pos<<" is not valid"<<endl;
+
             cout<<"Pick a valid number : ";
             cin>>input;
-            if(isdigit(input[0]) && input.size() == 1){
+            if(input.size() == 1 && isdigit(input[0])){
                 pos = stoi(input);
             }else {
                 pos = -1;
             }
-        }
+            if(XO[(pos-1)/3][(pos-1)%3] == 'X' || XO[(pos-1)/3][(pos-1)%3] == 'O'){
+                pos = -1;
+            }
+        }while(pos == -1);
+
         if(X_turn){
             XO[(pos-1)/3][(pos-1)%3]='X';
         }else {
             XO[(pos-1)/3][(pos-1)%3]='O';
 
         }
-        system("cls");
         X_turn = !X_turn;
         }
         else {
@@ -97,5 +108,5 @@ int main()
     }
 
 
-    return 0;
+
 }
